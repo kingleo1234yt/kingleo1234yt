@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Clock (12h)</title>
+  <style>
+    /* Full-screen gradient background */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: -webkit-linear-gradient(135deg, #6a11cb, #2575fc);
+      background: -moz-linear-gradient(135deg, #6a11cb, #2575fc);
+      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    /* Center container */
+    .clock-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px 50px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(8px);
+    }
+
+    /* Digital clock text */
+    #clock {
+      font-size: clamp(48px, 8vw, 96px); /* Big but responsive */
+      font-weight: bold;
+      color: white;
+      letter-spacing: 4px;
+      text-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="clock-container">
+    <h1 id="clock">00:00:00 AM</h1>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      let hrs = now.getHours();
+      let mins = String(now.getMinutes()).padStart(2, '0');
+      let secs = String(now.getSeconds()).padStart(2, '0');
+      let ampm = hrs >= 12 ? "PM" : "AM";
+
+      hrs = hrs % 12;
+      hrs = hrs ? hrs : 12; // 0 → 12
+      hrs = String(hrs).padStart(2, '0');
+
+      document.getElementById("clock").textContent = `${hrs}:${mins}:${secs} ${ampm}`;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
